@@ -13,10 +13,12 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +34,9 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(setOf(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+/*        navView.setupWithNavController(navController)
+        search_button.setOnClickListener { mainPresenter.showArtistsSearchList(etArtist.text.toString()) }*/
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
