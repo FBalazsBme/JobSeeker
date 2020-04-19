@@ -24,6 +24,7 @@ env:
 sudo: required
 
 before_install:
+  - yes | sdkmanager --licenses
   - yes | sdkmanager "platforms;android-28"
 
 before_script:
