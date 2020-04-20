@@ -15,6 +15,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/list_item_title"
+                    android:textSize="@dimen/activity_vertical_margin"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     />
                 <TextView
@@ -22,14 +23,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="@string/secondary_text"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColorSecondary"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/supporting_text"
+                    android:textSize="@dimen/activity_vertical_margin"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary"
                     />

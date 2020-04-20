@@ -34,40 +34,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/nav_host_fragment">
 
-        <EditText
-            android:id="@+id/job_keyword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:width="250dp"
-            android:ems="10"
-            android:hint="Állás neve"
-            android:inputType="textPersonName"
-            android:singleLine="true"
-            android:textColorHint="#c7c7c7" />
-
-        <EditText
-            android:id="@+id/location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:width="250dp"
-            android:ems="10"
-            android:hint="Település"
-            android:inputType="textPersonName"
-            android:singleLine="true"
-            android:textColorHint="#c7c7c7" />
-
-        <Button
-            android:id="@+id/search_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:width="250dp"
-            android:backgroundTint="#03A9F4"
-            android:backgroundTintMode="src_in"
-            android:ems="10"
-            android:singleLine="true"
-            android:text="Keresés"
-            app:layout_constraintEnd_toEndOf="@+id/nav_host_fragment"
-            app:layout_constraintTop_toTopOf="@+id/nav_host_fragment" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
