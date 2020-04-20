@@ -1,7 +1,8 @@
-package com.example.jobseeker
+package com.example.jobseeker.ui.main
 
 import android.app.Activity
 import android.os.Bundle
+import com.example.jobseeker.R
 
 
 class ResultListActivity : Activity() {

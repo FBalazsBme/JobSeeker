@@ -13,5 +13,9 @@
 
     <string name="home_second">Home Second</string>
     <string name="action_search">Search</string>
-    <string name="result_list_item">Search</string>
+    <string name="result_list_item">Result list</string>
+
+    <string name="list_item_title">Result list</string>
+    <string name="secondary_text">Secondary</string>
+    <string name="supporting_text">Support</string>
 </resources>

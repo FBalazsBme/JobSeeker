@@ -1,4 +1,4 @@
-package com.example.jobseeker
+package com.example.jobseeker.ui.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.jobseeker.R
 import com.google.android.material.navigation.NavigationView
 
 
@@ -39,7 +40,10 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow), drawerLayout)
+            R.id.nav_home,
+            R.id.nav_gallery,
+            R.id.nav_slideshow
+        ), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
 /*        navView.setupWithNavController(navController)
         search_button.setOnClickListener { mainPresenter.showArtistsSearchList(etArtist.text.toString()) }*/
