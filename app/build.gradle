@@ -13,6 +13,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -23,6 +24,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    useLibrary 'org.apache.http.legacy'
 
 // To inline the bytecode built with JVM target 1.8 into
 // bytecode that is being built with JVM target 1.6. (e.g. navArgs)
@@ -36,9 +39,38 @@ android {
         jvmTarget = "1.8"
     }
 
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/VERSION.PROPERTIES'
+        exclude("META-INF/*.kotlin_module")
+        exclude 'project.properties'
+        exclude 'META-INF/INDEX.LIST'
+    }
+
+}
+
+ext {
+    swagger_annotations_version = "1.5.0"
+    gson_version = "2.3.1"
+    httpmime_version = "4.5.2"
+    httpcore_version = "4.3.3"
+    httpclient_version = "4.3.3"
+    volley_version = "1.0.0"
+    junit_version = "4.12"
+    robolectric_version = "3.0"
+    concurrent_unit_version = "0.4.2"
 }
 
 dependencies {
+    def kotlinXVersion = "1.0.1"
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -54,6 +86,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinXVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinXVersion"
+
     implementation kotlinDependencies.stdlib
 
     implementation supportDependencies.appcompat
@@ -92,4 +128,11 @@ dependencies {
     androidTestImplementation daggerDependencies.dagger
     androidTestImplementation daggerDependencies.annotation
     kaptAndroidTest daggerDependencies.compiler
+
+    compile "io.swagger:swagger-annotations:$swagger_annotations_version"
+    compile "com.google.code.gson:gson:$gson_version"
+    compile "com.android.volley:volley:${volley_version}"
+    testCompile "junit:junit:$junit_version"
+    testCompile "org.robolectric:robolectric:${robolectric_version}"
+    testCompile "net.jodah:concurrentunit:${concurrent_unit_version}"
 }
