@@ -70,6 +70,7 @@ ext {
 
 dependencies {
     def kotlinXVersion = "1.0.1"
+    def roomVersion = '2.2.5'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -128,6 +129,9 @@ dependencies {
     androidTestImplementation daggerDependencies.dagger
     androidTestImplementation daggerDependencies.annotation
     kaptAndroidTest daggerDependencies.compiler
+
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
 
     compile "io.swagger:swagger-annotations:$swagger_annotations_version"
     compile "com.google.code.gson:gson:$gson_version"

@@ -33,7 +33,7 @@ public class JsonUtil {
     gsonBuilder.setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
     gsonBuilder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
       public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        return new Date(json.getAsJsonPrimitive().getAsLong());
+        return new Date(json.getAsJsonPrimitive().getAsString());
       }
     });
   }

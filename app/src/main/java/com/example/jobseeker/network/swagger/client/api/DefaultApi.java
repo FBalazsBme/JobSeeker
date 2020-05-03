@@ -79,6 +79,7 @@ public class DefaultApi {
     queryParams.addAll(ApiInvoker.parameterToPairs("", "full_time", fullTime));
     queryParams.addAll(ApiInvoker.parameterToPairs("", "description", description));
     queryParams.addAll(ApiInvoker.parameterToPairs("", "location", location));
+    queryParams.addAll(ApiInvoker.parameterToPairs("", "page", "1"));
     String[] contentTypes = {
     };
     String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
@@ -95,7 +96,9 @@ public class DefaultApi {
     String[] authNames = new String[] {  };
 
     try {
+      apiInvoker.setConnectionTimeout(20);
       String localVarResponse = apiInvoker.invokeAPI (basePath, path, "GET", queryParams, postBody, headerParams, formParams, contentType, authNames);
+      System.out.println("localVarResponse received");
       if (localVarResponse != null) {
          return (List<Job>) ApiInvoker.deserialize(localVarResponse, "array", Job.class);
       } else {

@@ -1,6 +1,5 @@
 package com.example.jobseeker.ui.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -13,6 +12,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.jobseeker.R
+import com.example.jobseeker.network.swagger.client.api.DefaultApi
+import com.example.jobseeker.network.swagger.client.model.Job
 import com.google.android.material.navigation.NavigationView
 
 
@@ -27,10 +28,19 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        val defaultApi: DefaultApi = DefaultApi()
+
         val button: Button = findViewById<View>(R.id.search_button) as Button
         button.setOnClickListener() {
-            val i = Intent(this, ResultListActivity::class.java)
-            startActivity(i)
+            //val i = Intent(this, ResultListActivity::class.java)
+            println("Button pressed")
+            Thread(Runnable {
+                println("Thread started")
+                val jobs : List<Job> = defaultApi.positionsJsonGet(true, "python", "sf")
+                println("first company name is " + jobs[0].company)
+            }).start()
+
+            //startActivity(i)
         }
 
 

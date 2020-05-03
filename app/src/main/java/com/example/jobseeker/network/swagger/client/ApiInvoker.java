@@ -364,10 +364,14 @@ public class ApiInvoker {
   public String invokeAPI(String host, String path, String method, List<Pair> queryParams, Object body, Map<String, String> headerParams, Map<String, String> formParams, String contentType, String[] authNames) throws ApiException, InterruptedException, ExecutionException, TimeoutException {
     try {
       RequestFuture<String> future = RequestFuture.newFuture();
+      System.out.println("inovkeApi called");
       Request request = createRequest(host, path, method, queryParams, body, headerParams, formParams, contentType, authNames, future, future);
       if(request != null) {
-         mRequestQueue.add(request);
-         return future.get(connectionTimeout, TimeUnit.SECONDS);
+        System.out.println("request is not null");
+        mRequestQueue.add(request);
+        System.out.println("added to requestQueue");
+        System.out.println("Timeout is " + connectionTimeout);
+        return future.get();
       } else {
         return "no data";
       }
