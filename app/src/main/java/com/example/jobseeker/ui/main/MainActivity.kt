@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -12,9 +13,13 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.jobseeker.R
+import com.example.jobseeker.database.JobService
+import com.example.jobseeker.database.RoomJob
+import com.example.jobseeker.database.RoomJobDatabase
 import com.example.jobseeker.network.swagger.client.api.DefaultApi
 import com.example.jobseeker.network.swagger.client.model.Job
 import com.google.android.material.navigation.NavigationView
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,15 +33,56 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        val jobText: EditText = findViewById(R.id.job_keyword);
+        val locationText = findViewById<EditText>(R.id.location);
+
+
         val defaultApi: DefaultApi = DefaultApi()
 
         val button: Button = findViewById<View>(R.id.search_button) as Button
-        button.setOnClickListener() {
+
+
+
+        button.setOnClickListener {
             //val i = Intent(this, ResultListActivity::class.java)
             println("Button pressed")
+
+            println(jobText.getText().toString())
+            println(locationText.getText().toString())
+
             Thread(Runnable {
-                println("Thread started")
+                val roomJobDatabase = RoomJobDatabase.getInstance(this)
+
+                roomJobDatabase.roomJobDao().addJob(RoomJob(
+                    "id",
+                    "type",
+                    "url",
+                    Date(2018,10,12),
+                    "Ceg",
+                    "www.google.com",
+                    "Budapest",
+                    "Angular",
+                    "leiras",
+                    "palyazas",
+                    "cegLogo"
+                ))
+
+                val jobs = roomJobDatabase.roomJobDao().getAllJobs()
+
+                println(jobs[0].company)
+            }).start()
+
+
+
+            Thread(Runnable {
                 val jobs : List<Job> = defaultApi.positionsJsonGet(true, "python", "sf")
+
+                val jobService: JobService
+
+                for(job in jobs) {
+
+                }
+
                 println("first company name is " + jobs[0].company)
             }).start()
 
