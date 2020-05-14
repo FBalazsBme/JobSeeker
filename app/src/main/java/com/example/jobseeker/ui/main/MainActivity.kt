@@ -1,5 +1,6 @@
 package com.example.jobseeker.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -44,13 +45,12 @@ class MainActivity : AppCompatActivity() {
 
 
         button.setOnClickListener {
-            //val i = Intent(this, ResultListActivity::class.java)
             println("Button pressed")
 
             println(jobText.getText().toString())
             println(locationText.getText().toString())
 
-            Thread(Runnable {
+/*            Thread(Runnable {
                 val roomJobDatabase = RoomJobDatabase.getInstance(this)
 
                 roomJobDatabase.roomJobDao().addJob(RoomJob(
@@ -70,23 +70,36 @@ class MainActivity : AppCompatActivity() {
                 val jobs = roomJobDatabase.roomJobDao().getAllJobs()
 
                 println(jobs[0].company)
-            }).start()
+            }).start()*/
 
 
 
             Thread(Runnable {
                 val jobs : List<Job> = defaultApi.positionsJsonGet(true, "python", "sf")
 
-                val jobService: JobService
+                val roomJobDatabase = RoomJobDatabase.getInstance(this)
 
                 for(job in jobs) {
-
+                    roomJobDatabase.roomJobDao().addJob(RoomJob(
+                        job.id,
+                        job.type,
+                        job.url,
+                        job.createdAt,
+                        job.company,
+                        job.companyUrl,
+                        job.location,
+                        job.title,
+                        job.description,
+                        job.howToApply,
+                        job.companyLogo
+                    ))
                 }
 
                 println("first company name is " + jobs[0].company)
             }).start()
 
-            //startActivity(i)
+            val i = Intent(this, ResultListActivity::class.java)
+            startActivity(i)
         }
 
 
