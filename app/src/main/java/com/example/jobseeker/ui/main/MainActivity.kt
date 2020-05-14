@@ -90,8 +90,7 @@ class MainActivity : AppCompatActivity() {
                         job.location,
                         job.title,
                         job.description,
-                        job.howToApply,
-                        job.companyLogo
+                        job.howToApply
                     ))
                 }
 

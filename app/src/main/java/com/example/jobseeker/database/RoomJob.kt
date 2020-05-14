@@ -28,7 +28,5 @@ class RoomJob (
 
     val description: String,
 
-    val howToApply: String,
-
-    val companyLogo: String
+    val howToApply: String
 )
