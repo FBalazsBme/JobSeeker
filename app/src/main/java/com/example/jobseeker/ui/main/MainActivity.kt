@@ -14,6 +14,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.jobseeker.R
+import com.example.jobseeker.database.JobRepository
 import com.example.jobseeker.database.JobService
 import com.example.jobseeker.database.RoomJob
 import com.example.jobseeker.database.RoomJobDatabase
@@ -95,6 +96,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 println("first company name is " + jobs[0].company)
+                JobRepository(this.application)
             }).start()
 
             val i = Intent(this, ResultListActivity::class.java)

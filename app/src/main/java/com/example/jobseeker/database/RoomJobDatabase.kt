@@ -35,6 +35,7 @@ abstract class RoomJobDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context): RoomJobDatabase {
             return Room.databaseBuilder(context, RoomJobDatabase::class.java, DATABASE)
+                .allowMainThreadQueries()
                 .build()
         }
     }
