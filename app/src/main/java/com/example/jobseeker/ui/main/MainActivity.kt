@@ -2,10 +2,12 @@ package com.example.jobseeker.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -15,13 +17,12 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.jobseeker.R
 import com.example.jobseeker.database.JobRepository
-import com.example.jobseeker.database.JobService
 import com.example.jobseeker.database.RoomJob
 import com.example.jobseeker.database.RoomJobDatabase
+import com.example.jobseeker.network.swagger.client.ApiException
 import com.example.jobseeker.network.swagger.client.api.DefaultApi
 import com.example.jobseeker.network.swagger.client.model.Job
 import com.google.android.material.navigation.NavigationView
-import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -43,7 +44,9 @@ class MainActivity : AppCompatActivity() {
 
         val button: Button = findViewById<View>(R.id.search_button) as Button
 
-
+        jobText.setOnClickListener{view ->
+            println("job Text set")
+        }
 
         button.setOnClickListener {
             println("Button pressed")
@@ -76,27 +79,34 @@ class MainActivity : AppCompatActivity() {
 
 
             Thread(Runnable {
-                val jobs : List<Job> = defaultApi.positionsJsonGet(true, "python", "sf")
+                try {
 
-                val roomJobDatabase = RoomJobDatabase.getInstance(this)
+                    val jobs : List<Job> = defaultApi.positionsJsonGet(true, "python", "sf")
 
-                for(job in jobs) {
-                    roomJobDatabase.roomJobDao().addJob(RoomJob(
-                        job.id,
-                        job.type,
-                        job.url,
-                        job.createdAt,
-                        job.company,
-                        job.companyUrl,
-                        job.location,
-                        job.title,
-                        job.description,
-                        job.howToApply
-                    ))
+                    val roomJobDatabase = RoomJobDatabase.getInstance(this)
+
+                    for(job in jobs) {
+                        roomJobDatabase.roomJobDao().addJob(RoomJob(
+                            job.id,
+                            job.type,
+                            job.url,
+                            job.createdAt,
+                            job.company,
+                            job.companyUrl,
+                            job.location,
+                            job.title,
+                            job.description,
+                            job.howToApply
+                        ))
+                        println("first company name is " + jobs[0].company)
+                        JobRepository(this.application)
+                    }
+                }
+                catch(apiE: ApiException) {
+                    Toast.makeText(this, "This is my Toast message!",
+                        Toast.LENGTH_LONG).show();
                 }
 
-                println("first company name is " + jobs[0].company)
-                JobRepository(this.application)
             }).start()
 
             val i = Intent(this, ResultListActivity::class.java)
