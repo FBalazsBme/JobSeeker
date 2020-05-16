@@ -17,4 +17,7 @@ interface JobService {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addJob(job: RoomJob)
+
+    @Query("DELETE FROM roomjob")
+    fun clearTable()
 }

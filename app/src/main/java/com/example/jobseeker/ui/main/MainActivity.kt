@@ -28,6 +28,7 @@ import com.google.android.material.navigation.NavigationView
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    public lateinit var jobs : List<Job>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,10 +81,19 @@ class MainActivity : AppCompatActivity() {
 
             Thread(Runnable {
                 try {
+                    //val jobs : List<Job> = defaultApi.positionsJsonGet(true, "python", "sf")
 
-                    val jobs : List<Job> = defaultApi.positionsJsonGet(true, "python", "sf")
-
+                    println("thread started")
                     val roomJobDatabase = RoomJobDatabase.getInstance(this)
+
+                    roomJobDatabase.roomJobDao().clearTable()
+
+                    println("Before network call")
+
+                    jobs = defaultApi.positionsJsonGet(true,
+                        jobText.getText().toString(), locationText.getText().toString())
+
+                    println("first company name is " + jobs[0].company)
 
                     for(job in jobs) {
                         roomJobDatabase.roomJobDao().addJob(RoomJob(
@@ -98,9 +108,12 @@ class MainActivity : AppCompatActivity() {
                             job.description,
                             job.howToApply
                         ))
-                        println("first company name is " + jobs[0].company)
+
                         JobRepository(this.application)
+
                     }
+                    val i = Intent(this, ResultListActivity::class.java)
+                    startActivity(i)
                 }
                 catch(apiE: ApiException) {
                     Toast.makeText(this, "This is my Toast message!",
@@ -109,8 +122,7 @@ class MainActivity : AppCompatActivity() {
 
             }).start()
 
-            val i = Intent(this, ResultListActivity::class.java)
-            startActivity(i)
+
         }
 
 

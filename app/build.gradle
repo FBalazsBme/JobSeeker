@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId "com.example.jobseeker"
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -22,6 +22,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
         }
     }
 
@@ -64,7 +70,7 @@ ext {
     httpclient_version = "4.3.3"
     volley_version = "1.0.0"
     junit_version = "4.12"
-    robolectric_version = "3.0"
+    robolectric_version = "4.0"
     concurrent_unit_version = "0.4.2"
 }
 
@@ -82,6 +88,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.0.0'
     implementation 'androidx.navigation:navigation-ui:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    kapt 'androidx.lifecycle:lifecycle-common-java8:2.2.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.0.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.0.0'
     testImplementation 'junit:junit:4.12'
@@ -138,5 +145,5 @@ dependencies {
     compile "com.android.volley:volley:${volley_version}"
     testCompile "junit:junit:$junit_version"
     testCompile "org.robolectric:robolectric:${robolectric_version}"
-    testCompile "net.jodah:concurrentunit:${concurrent_unit_version}"
+    testCompile 'org.assertj:assertj-core:1.7.1'
 }

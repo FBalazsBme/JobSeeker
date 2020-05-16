@@ -8,7 +8,7 @@ import com.example.jobseeker.database.JobRepository
 import com.example.jobseeker.database.RoomJob
 
 
-class JobViewModel(application: Application)  : AndroidViewModel(application){
+class JobViewModel public constructor(application: Application)  : AndroidViewModel(application){
 
     private var mRepository: JobRepository? = null
 
