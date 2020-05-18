@@ -2,7 +2,6 @@ package com.example.jobseeker.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.widget.Button
@@ -15,6 +14,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.jobseeker.JobSeekerApplication
 import com.example.jobseeker.R
 import com.example.jobseeker.database.JobRepository
 import com.example.jobseeker.database.RoomJob
@@ -23,10 +23,13 @@ import com.example.jobseeker.network.swagger.client.ApiException
 import com.example.jobseeker.network.swagger.client.api.DefaultApi
 import com.example.jobseeker.network.swagger.client.model.Job
 import com.google.android.material.navigation.NavigationView
-
+import com.google.firebase.analytics.FirebaseAnalytics
 
 class MainActivity : AppCompatActivity() {
 
+
+    //private lateinit var firebaseAnalytics: FirebaseAnalytics
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
     private lateinit var appBarConfiguration: AppBarConfiguration
     public lateinit var jobs : List<Job>
 
@@ -40,6 +43,10 @@ class MainActivity : AppCompatActivity() {
         val jobText: EditText = findViewById(R.id.job_keyword);
         val locationText = findViewById<EditText>(R.id.location);
 
+        val application: JobSeekerApplication = application as JobSeekerApplication
+
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
 
         val defaultApi: DefaultApi = DefaultApi()
 
@@ -52,30 +59,11 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener {
             println("Button pressed")
 
+            //throw RuntimeException("Test Crash")
+
             println(jobText.getText().toString())
             println(locationText.getText().toString())
 
-/*            Thread(Runnable {
-                val roomJobDatabase = RoomJobDatabase.getInstance(this)
-
-                roomJobDatabase.roomJobDao().addJob(RoomJob(
-                    "id",
-                    "type",
-                    "url",
-                    Date(2018,10,12),
-                    "Ceg",
-                    "www.google.com",
-                    "Budapest",
-                    "Angular",
-                    "leiras",
-                    "palyazas",
-                    "cegLogo"
-                ))
-
-                val jobs = roomJobDatabase.roomJobDao().getAllJobs()
-
-                println(jobs[0].company)
-            }).start()*/
 
 
 
@@ -84,7 +72,9 @@ class MainActivity : AppCompatActivity() {
                     //val jobs : List<Job> = defaultApi.positionsJsonGet(true, "python", "sf")
 
                     println("thread started")
+                    var params: Bundle = Bundle()
                     val roomJobDatabase = RoomJobDatabase.getInstance(this)
+                    firebaseAnalytics.logEvent("button_pressed", params)
 
                     roomJobDatabase.roomJobDao().clearTable()
 

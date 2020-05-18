@@ -2,6 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
+
 
 android {
     compileSdkVersion 29
@@ -94,9 +97,14 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinXVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinXVersion"
+    implementation 'com.google.firebase:firebase-analytics-ktx:17.4.1'
+
+    // Add the Firebase Crashlytics SDK.
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
+
+
 
     implementation kotlinDependencies.stdlib
 
@@ -112,6 +120,7 @@ dependencies {
     implementation toolkitDependencies.gson
     implementation toolkitDependencies.glide
     implementation toolkitDependencies.eventbus
+
 
     implementation daggerDependencies.dagger
     kapt daggerDependencies.compiler
@@ -146,4 +155,5 @@ dependencies {
     testCompile "junit:junit:$junit_version"
     testCompile "org.robolectric:robolectric:${robolectric_version}"
     testCompile 'org.assertj:assertj-core:1.7.1'
+
 }

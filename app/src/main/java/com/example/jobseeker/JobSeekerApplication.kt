@@ -9,6 +9,5 @@ class JobSeekerApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         injector = DaggerJobSeekerApplicationComponent.builder().uIModule(UIModule(this)).build()
-
     }
 }
